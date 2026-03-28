@@ -20,7 +20,7 @@ set(BUILD                                   "build/${PLATFORM}")
 ##                                     md4c                                   ##
 ##                                                                            ##
 ################################################################################
-set(MD4C_DIR                                "${CMAKE_SOURCE_DIR}/../../iWork-3rd/md4c-0.5.2")
+set(MD4C_DIR                                "${CMAKE_SOURCE_DIR}/../iWork-3rd/md4c-0.5.2")
 set(MD4C_INCLUDE_DIR                        "${MD4C_DIR}/src")
 set(MD4C_LIBRARY_DIR                        "${MD4C_DIR}/${BUILD}/src")
 set(MD4C_LIBRARIES                          "${MD4C_LIBRARY_DIR}/libmd4c.dylib")
@@ -30,7 +30,7 @@ set(MD4C_LIBRARIES                          "${MD4C_LIBRARY_DIR}/libmd4c.dylib")
 ##                                   argtable3                                ##
 ##                                                                            ##
 ################################################################################
-set(ARGTABLE3_DIR                           "${CMAKE_SOURCE_DIR}/../../iWork-3rd/argtable3-3.3.1")
+set(ARGTABLE3_DIR                           "${CMAKE_SOURCE_DIR}/../iWork-3rd/argtable3-3.3.1")
 set(ARGTABLE3_INCLUDE_DIR                   "${ARGTABLE3_DIR}/src")
 set(ARGTABLE3_LIBRARY_DIR                   "${ARGTABLE3_DIR}/${BUILD}")
 set(ARGTABLE3_LIBRARIES                     "${ARGTABLE3_LIBRARY_DIR}/src/libargtable3.a")
