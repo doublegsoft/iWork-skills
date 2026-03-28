@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "argtable3.h"
+#include <argtable3.h>
 #include "common.h"
 
 static int indent_level = 0;
