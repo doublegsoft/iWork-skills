@@ -1,8 +1,7 @@
-cmake_minimum_required(VERSION 3.16)
-project(iWork-filemerge VERSION 1.0.0 LANGUAGES C)
+cmake_minimum_required(VERSION 3.15)
+project(iWork-bashexec C)
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_STANDARD_REQUIRED ON)
 
 if (WIN32)
 elseif (APPLE)
@@ -24,14 +23,10 @@ set(ARGTABLE3_LIBRARY_DIR                   "${ARGTABLE3_DIR}/${BUILD}")
 set(ARGTABLE3_LIBRARIES                     "${ARGTABLE3_LIBRARY_DIR}/src/libargtable3.a")
 
 include_directories(
-  src
   ${ARGTABLE3_INCLUDE_DIR}
 )
 
-add_executable(${PROJECT_NAME}
-  src/main.c
-  src/merge.c
-)
+add_executable(${PROJECT_NAME} src/main.c)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE 
   ${ARGTABLE3_LIBRARIES}

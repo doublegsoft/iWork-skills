@@ -4,9 +4,9 @@
 #include <stdlib.h>
 
 int main(int argc, char* argv[]) {
-  struct arg_file* arg_base   = arg_file1(NULL, NULL, "<base>",   "base file");
-  struct arg_file* arg_ours   = arg_file1(NULL, NULL, "<ours>",   "ours file");
-  struct arg_file* arg_theirs = arg_file0(NULL, NULL, "<theirs>", "theirs file (optional, omit for 2-way diff)");
+  struct arg_file* arg_base   = arg_file1("b", "base", "<base>",   "base file");
+  struct arg_file* arg_ours   = arg_file1("o", "ours", "<ours>",   "ours file");
+  struct arg_file* arg_theirs = arg_file0("t", "theirs", "<theirs>", "theirs file (optional, omit for 2-way diff)");
   struct arg_lit*  arg_help   = arg_lit0("h", "help", "print this help and exit");
   struct arg_end*  end        = arg_end(20);
 

@@ -4,3 +4,4 @@ project(iWork-skills)
 
 add_subdirectory(iWork-sourcewrite)
 add_subdirectory(iWork-filemerge)
+add_subdirectory(iWork-bashexec)
