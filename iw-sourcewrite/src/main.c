@@ -124,7 +124,6 @@ int main(int argc, char* argv[]) {
   struct arg_end*  end        = arg_end(20);
 
   void* argtable[] = { opt_input, opt_output, opt_help, end };
-
   int nerrors = arg_parse(argc, argv, argtable);
 
   if (opt_help->count > 0) {
@@ -138,6 +137,8 @@ int main(int argc, char* argv[]) {
   if (nerrors > 0) {
     arg_print_errors(stderr, end, argv[0]);
     fprintf(stderr, "Try '%s --help' for more information.\n", argv[0]);
+    arg_print_syntax(stdout, argtable, "\n");
+    arg_print_glossary(stdout, argtable, "  %-25s %s\n");
     arg_freetable(argtable, sizeof(argtable) / sizeof(argtable[0]));
     return 1;
   }

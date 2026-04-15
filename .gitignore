@@ -2,3 +2,6 @@
 .vscode
 build
 out
+*.dylib
+*.a
+*.o

@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 
 project(iWork-skills)
 
-add_subdirectory(iWork-sourcewrite)
-add_subdirectory(iWork-filemerge)
-add_subdirectory(iWork-bashexec)
+add_subdirectory(iw-sourcewrite)
+add_subdirectory(iw-filemerge)
+add_subdirectory(iw-bashexec)
+add_subdirectory(iw-html2image)
+add_subdirectory(iw-sourceread)
+add_subdirectory(iw-funcomplex)

@@ -122,7 +122,7 @@ static int _d01_leave_span(MD_SPANTYPE type, void* detail, void* userdata) {
 
 static int _d01_text(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* userdata) {
   D01_State* s = (D01_State*)userdata;
-  if (s->in_strong && !s->in_code_block) {
+  if (/*s->in_strong && */!s->in_code_block) {
     char buf[_D01_MAX_PATH_LEN] = {0};
     size_t len = size < sizeof(buf) - 1 ? size : sizeof(buf) - 1;
     memcpy(buf, text, len);
@@ -131,6 +131,7 @@ static int _d01_text(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* 
     if (strncmp(buf, prefix, plen) == 0) {
       strncpy(s->pending_path, buf + plen, _D01_MAX_PATH_LEN - 1);
       s->has_pending = 1;
+      printf("pending: %s\n", s->pending_path);
     }
     return 0;
   }
@@ -151,7 +152,6 @@ static int _d01_text(MD_TEXTTYPE type, const MD_CHAR* text, MD_SIZE size, void* 
 static int process(const char* md_filepath, const char* root_dir) {
   char* content = read_file_as_string(md_filepath);
   if (!content) { fprintf(stderr, "Failed to read: %s\n", md_filepath); return -1; }
-
   D01_State state = {0};
   MD_PARSER parser = {
     .abi_version = 0,          .flags       = 0,
