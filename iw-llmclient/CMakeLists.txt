@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(iw-mimetype C)
+project(iw-llmclient C)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
@@ -25,30 +25,30 @@ set(ARGTABLE3_LIBRARIES                     "${ARGTABLE3_LIBRARY_DIR}/src/libarg
 
 ################################################################################
 ##                                                                            ##
-##                                  onnxruntime                               ##
+##                                     curl                                   ##
 ##                                                                            ##
 ################################################################################
-set(ONNXRUNTIME_DIR                           "${CMAKE_SOURCE_DIR}/../iWork-3rd/onnxruntime-osx-arm64-1.24.4")
-set(ONNXRUNTIME_INCLUDE_DIR                   "${ONNXRUNTIME_DIR}/include")
-set(ONNXRUNTIME_LIBRARY_DIR                   "${ONNXRUNTIME_DIR}/lib")
-set(ONNXRUNTIME_LIBRARIES                     "onnxruntime")
+set(CURL_DIR                              "${CMAKE_SOURCE_DIR}/../iWork-3rd/curl-8.19.0")
+set(CURL_INCLUDE_DIR                      "${CURL_DIR}/include")
+set(CURL_LIBRARY_DIR                      "${CURL_DIR}/${BUILD}")
+set(CURL_LIBRARIES                        curl)
 
 include_directories(
   ${ARGTABLE3_INCLUDE_DIR}
-  ${ONNXRUNTIME_INCLUDE_DIR}
+  ${CURL_INCLUDE_DIR}
 )
 
 link_directories(
   src
   ${ARGTABLE3_LIBRARY_DIR}
-  ${ONNXRUNTIME_LIBRARY_DIR}
+  ${CURL_LIBRARY_DIR}
 )
 
 add_executable(${PROJECT_NAME}
-  src/iw-mimetype.c
+  src/main.c
 )
 
 target_link_libraries(${PROJECT_NAME}
   ${ARGTABLE3_LIBRARIES}
-  ${ONNXRUNTIME_LIBRARIES}
+  ${CURL_LIBRARIES}
 )

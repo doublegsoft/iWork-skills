@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <argtable3.h>
 #include <onnxruntime_c_api.h>
 
 #ifndef PATH_MAX
@@ -819,31 +820,39 @@ int main(int argc, char** argv) {
   OrtSession* session = NULL;
   OrtMemoryInfo* memory_info = NULL;
   int exit_code = 1;
-  int i;
+
+  struct arg_str*  opt_model_dir = arg_str0("m", "model-dir",   "<dir>",  "model directory (default: ../assets/models/standard_v3_3)");
+  struct arg_file* opt_input     = arg_file1("f", "file",        "<file>", "file to check");
+  struct arg_lit*  opt_help      = arg_lit0("h", "help",                "print this help and exit");
+  struct arg_end*  end           = arg_end(2);
+  void* argtable[] = { opt_model_dir, opt_input, opt_help, end };
 
   memset(&config, 0, sizeof(config));
   memset(&info, 0, sizeof(info));
   memset(&features, 0, sizeof(features));
 
-  for (i = 1; i < argc; ++i) {
-    if (strcmp(argv[i], "--model-dir") == 0) {
-      if (i + 1 >= argc) {
-        fprintf(stderr, "--model-dir requires a value\n");
-        goto cleanup;
-      }
-      model_dir = argv[++i];
-    } else if (argv[i][0] == '-') {
-      fprintf(stderr, "unsupported option: %s\n", argv[i]);
-      goto cleanup;
-    } else {
-      input_path = argv[i];
-    }
+  int nerrors = arg_parse(argc, argv, argtable);
+
+  if (opt_help->count > 0) {
+    printf("Usage: %s", argv[0]);
+    arg_print_syntax(stdout, argtable, "\n");
+    arg_print_glossary(stdout, argtable, "  %-25s %s\n");
+    arg_freetable(argtable, sizeof(argtable) / sizeof(argtable[0]));
+    return 0;
   }
 
-  if (input_path == NULL) {
-    fprintf(stderr, "usage: %s [--model-dir DIR] FILE\n", argv[0]);
-    goto cleanup;
+  if (nerrors > 0) {
+    arg_print_errors(stderr, end, argv[0]);
+    fprintf(stderr, "Try '%s --help' for more information.\n", argv[0]);
+    arg_freetable(argtable, sizeof(argtable) / sizeof(argtable[0]));
+    return 1;
   }
+
+  if (opt_model_dir->count > 0) {
+    model_dir = opt_model_dir->sval[0];
+  }
+
+  input_path = opt_input->filename[0];
 
   join_path(config_path, sizeof(config_path), model_dir, "config.min.json");
   join_path(model_path, sizeof(model_path), model_dir, "model.onnx");
@@ -944,6 +953,7 @@ print_result:
   exit_code = 0;
 
 cleanup:
+  arg_freetable(argtable, sizeof(argtable) / sizeof(argtable[0]));
   free_content_type_info(&info);
   free_features(&features);
   free(content);

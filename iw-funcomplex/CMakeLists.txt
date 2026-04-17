@@ -18,11 +18,11 @@ set(BUILD                                   "build/${PLATFORM}")
 ##                                 tree-sitter                                ##
 ##                                                                            ##
 ################################################################################
-set(TREE_SITTER_DIR                                "${CMAKE_SOURCE_DIR}/3rd/tree-sitter")
-set(TREE_SITTER_INCLUDE_DIR                        "${TREE_SITTER_DIR}/lib/include")
-set(TREE_SITTER_LIBRARY_DIR                        "${TREE_SITTER_DIR}"
-                                                   "${TREE_SITTER_DIR}/test/fixtures/grammars/java")
-set(TREE_SITTER_LIBRARIES                          tree-sitter tree-sitter-java)
+set(TREE_SITTER_DIR                         "${CMAKE_SOURCE_DIR}/../iWork-3rd/tree-sitter")
+set(TREE_SITTER_INCLUDE_DIR                 "${TREE_SITTER_DIR}/lib/include")
+set(TREE_SITTER_LIBRARY_DIR                 "${TREE_SITTER_DIR}"
+                                            "${TREE_SITTER_DIR}/test/fixtures/grammars/java")
+set(TREE_SITTER_LIBRARIES                   tree-sitter tree-sitter-java)
 
 ################################################################################
 ##                                                                            ##
